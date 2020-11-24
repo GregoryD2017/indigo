@@ -133,7 +133,7 @@ compress_html:
 
 include:
   [
-    "projects/"
+    "_projects"
   ]
 exclude:
   [
