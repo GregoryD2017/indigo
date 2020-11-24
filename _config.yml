@@ -131,6 +131,10 @@ compress_html:
       - development
       - stage
 
+include:
+  [
+    "projects/"
+  ]
 exclude:
   [
     "travis.sh",
