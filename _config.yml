@@ -14,9 +14,9 @@ picture: assets/images/profile.png
 # and specify source (external or local).
 resume: true
 resume-external: false
-resume-url: files/GregoryDu_Resume_Fall2020.pdf
+resume-url: assets/files/GregoryDu_Resume_Fall2020.pdf
 
-url: https://gregoryd2017.github.io/indigo
+url: https://gregoryd2017.github.io/indigo/
 # your url: https://USERNAME.github.io
 
 permalink: /:title/
