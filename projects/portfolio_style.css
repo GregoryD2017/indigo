@@ -1,0 +1,26 @@
+img {
+  margin: auto;
+  display: block;
+  max-width: 99%;
+  height: auto;
+  width: auto;
+}
+
+video {
+  width: 70%;
+  height: auto;
+}
+
+figcaption {
+background-color: black;
+color: white;
+font-style: italic;
+padding-top: 7px;
+padding-bottom: 7px;
+text-align: center;
+width: 99%;
+}
+
+p.medium {
+  line-height : 1.5;
+}
