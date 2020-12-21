@@ -1,0 +1,14 @@
+/* Style for the project landing page. */
+div.gallery_card {
+  max-width: 50%;
+}
+
+h2 {
+  margin:0px;
+}
+
+h1.section_header {
+  text-align: left;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}

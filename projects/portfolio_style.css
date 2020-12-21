@@ -1,11 +1,4 @@
-img {
-  margin: auto;
-  display: block;
-  max-width: 99%;
-  height: auto;
-  width: auto;
-}
-
+/* Style for all project pages. */
 video {
   width: 70%;
   height: auto;
@@ -18,9 +11,20 @@ font-style: italic;
 padding-top: 7px;
 padding-bottom: 7px;
 text-align: center;
-width: 99%;
+width: 100%;
 }
 
 p.medium {
   line-height : 1.5;
+}
+
+p.description {
+  line-height: 1.5;
+}
+
+code {
+  font-family: Consolas,"courier new";
+  color: crimson;
+  background-color: #eee;
+  padding: 1px;
 }
