@@ -1,37 +1,27 @@
 ---
 title: Meshedit
 layout: page
-hide: true
 ---
-
-<style>
-  img {
-    margin: auto;
-    display: block;
-    max-width: 99%;
-    height: auto;
-    width: auto\9;
-  }
-
-  p.medium {line-height : 1.5;}
-</style>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-<meta charset="utf-8">
+  <link rel="stylesheet" href="../portfolio_style.css">
+  <meta charset="utf-8">
 </head>
 <body>
 
 <img src="images/intro/header.PNG" size=600px/>
 <br>
+<br>
 
-<h2 align="left">Overview</h2>
+<h2 align="left">Overview:</h2>
 <p class = "medium">
 Mesh Editor was an interesting dive into the world of 3D Graphics, and the underlying architecture that enables the geometric manipulations that power tools like Blender, and Maya.
 This project delves into both rendering Bezier curves and Bezier surfaces through a liberal application of <b>de Casteljau's algorithm</b>
 as well as manipulation of triangulated meshes, including edge flipping, edge splitting, and mesh subdivision.
 </p>
+<br>
+<br>
 
 <h2 align="left">Section I: Bezier Curves and Surfaces</h2>
 <h3 align="left">Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
@@ -65,7 +55,7 @@ degree control points.
 
 
 <div align = "middle">
-  <table style="width=100%">
+  <table style="width:100%">
     <tr>
       <td>
         <img src="images/part1/curve3_0.PNG" align="middle" width="500"/>
@@ -79,7 +69,7 @@ degree control points.
   </table>
 </div>
 <div align = "middle">
-  <table style="width=100%">
+  <table style="width:100%">
     <tr>
       <td>
         <img src="images/part1/curve3_2.PNG" align="middle" width="500"/>
@@ -93,7 +83,7 @@ degree control points.
   </table>
 </div>
 <div align = "middle">
-  <table style="width=100%">
+  <table style="width:100%">
     <tr>
       <td>
         <img src="images/part1/curve3_4.PNG" align="middle" width="500"/>
@@ -115,7 +105,7 @@ parameter <var>t</var>, which helps to visualize the entire Bezier curve.
 </div>
 
 <div align = "middle">
-  <table style="width=100%">
+  <table style="width:100%">
     <tr>
       <td>
         <img src="images/part1/curve3_mod.PNG" align="middle" width="500"/>
@@ -129,9 +119,9 @@ parameter <var>t</var>, which helps to visualize the entire Bezier curve.
   </table>
 </div>
 <br>
+<br>
 
 <h3 align="left">Part 2: Bezier surfaces with separable 1D de Casteljau subdivision</h3>
-
 <br>
 <div align = "middle">
 <img src="images/part2/teapot.PNG" align="middle" width="800px"/>
@@ -169,10 +159,7 @@ each stored as a vector in the Bezier patch, pushing the resulting interpolated 
 <br>
 
 <h2 align="left">Section II: Sampling</h2>
-
-
 <h3 align="left">Part 3: Average normals for half-edge meshes</h3>
-<br>
 <div align = "justify">
 <p class = "medium">
 Thankfully, the half-edge mesh makes computing area-weighted vertex normals quite elegant. The following pseudocode gives the outline: <br>
@@ -181,15 +168,17 @@ Thankfully, the half-edge mesh makes computing area-weighted vertex normals quit
 
 <div align = "left">
 <code>
-Initialize a tracker for total area (TA), and total vector sum (TVS)<br>
-For each vertex:
-<ol>
-<li>Query the initial half-edge rooted at this vertex (h = v->halfedge()). </li>
-<li>Retrieve h’s face, and query the face’s normal vector (face_norm = h->face()->norm()). </li>
-<li>Compute the area of the face.</li>
-<li>Add area to TA</li>
-<li>Add area * face_norm to TVS</li>
-<li>Repeat steps 1-5 for all adjacent faces to the given vertex</li></ol></code>
+  Initialize a tracker for total area (TA), and total vector sum (TVS)<br>
+  For each vertex:
+  <ol>
+    <li>Query the initial half-edge rooted at this vertex (h = v->halfedge()). </li>
+    <li>Retrieve h’s face, and query the face’s normal vector (face_norm = h->face()->norm()). </li>
+    <li>Compute the area of the face.</li>
+    <li>Add area to TA</li>
+    <li>Add area * face_norm to TVS</li>
+    <li>Repeat steps 1-5 for all adjacent faces to the given vertex</li>
+  </ol>
+</code>
 </div>
 
 <div align = "justify">
@@ -240,8 +229,7 @@ Then all we need to do is return TVS / TA.
     </tr>
   </table>
 </div>
-
-
+<br>
 <h3 align="left">Part 4: Half-edge flip</h3>
 
 <div align = "justify">
@@ -291,9 +279,9 @@ based on the picture on the right side, the flipped edge side. Finally, if our m
 but again with edge flips we can just skip this step.
 </p>
 </div>
+<br>
 
 <h3 align="left">Part 5: Half-edge split</h3>
-
 <div align = "justify">
 <p class = "left">
 As with task 4, the implementation of this part is quite straightforward, by following the earlier link. Simply begin by saving pointers for each
@@ -375,10 +363,9 @@ Note the boundary edges split correctly as well. Instead of leaving boundary edg
 triangle in two, by dividing the midpoint of the boundary edge with a vertex, and assigning neighbor elements to account for the new face.
 </p>
 </div>
-
+<br>
 
 <h3 align="left">Part 6: Loop subdivision for mesh upsampling</h3>
-
 <div align = "middle">
   <table style="width=100%">
     <tr>
@@ -393,6 +380,7 @@ triangle in two, by dividing the midpoint of the boundary edge with a vertex, an
     </tr>
   </table>
 </div>
+<br>
 <div align = "left">
 <b><i>Loop Subdivision: A Walkthrough:</i></b>
 </div>

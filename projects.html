@@ -2,25 +2,18 @@
 layout: page
 title: Projects
 ---
-<!-- <section class="list">
-    {% for post in site.posts %}
-        {% if post.projects %}
-            <div class="item {% if post.star %}star{% endif %}">
-                <a class="url" href="{% if post.externalLink %}{{ post.externalLink }}{% else %}{{ site.url }}{{ post.url }}{% endif %}">
-                    <aside><time datetime="{{ post.date | date:"%d-%m-%Y" }}">{{ post.date | date: "%b %d %Y" }}</time></aside>
-                    <h3 class="title">{{ post.title }}</h3>
-                </a>
-            </div>
-        {% endif %}
-    {% endfor %}
-</section> -->
-<!-- <a href="./projects/pathtracer/pathtracer.html">test</a> -->
 <link rel="stylesheet" href="./projects/gallery_style.css">
+<div style="text-align: center;">
+  <h3> 
+    <i> <a class="link" href="#computer_graphics">Computer Graphics</a> | <a class="link" href="#computer_vision">Computer Vision</a></i> 
+  </h3>
+</div>
+
 
 <br>
 <br>
 
-<h1 class="section_header">Graphics Portfolio</h1>
+<h1 class="section_header" id="computer_graphics">Computer Graphics Portfolio</h1>
 <section class="list">
   <div class="item">
     <a href="./projects/pathtracer/pathtracer.html">
@@ -116,4 +109,45 @@ title: Projects
       </p>
     </div>
   </div>      
+</section>
+
+<br>
+<br>
+
+<h1 class="section_header" id="computer_vision">Computer Vision / Computational Imaging Portfolio</h1>
+<section class="list">
+  <div class="item">
+    <a href="./projects/style_transfer/style_transfer.html">
+      <img src="./projects/gallery_cards/style_transfer.gif" width="300">
+    </a>
+    <div class="gallery_card">
+      <a href="./projects/style_transfer/style_transfer.html">
+        <h2>Neural Style Transfer</h2> 
+      </a>
+      <p class="description">
+        An implemented version of neural style transfer from 
+        <a href="https://arxiv.org/pdf/1508.06576)" target="_blank">Gatys' paper</a>.
+        Using convolutional neural nets to extricate style patterns from famous 
+        paintings and rendering photos in those styles.
+      </p>
+    </div>
+  </div>
+  <div class="item">
+    <a href="./projects/ar/ar.html">
+      <img src="./projects/gallery_cards/ar.png" width="300">
+    </a>
+    <div class="gallery_card">
+      <a href="./projects/ar/ar.html">
+        <h2>Augmented Reality</h2> 
+      </a>
+      <p class="description">
+        A very rudimentary form of augmented reality. Uses OpenCV to
+        track points in captured video allowing for projection matrix 
+        computation, and camera calibration, at which point simple 
+        overlays can be projected onto the video.
+      </p>
+    </div>
+  </div>      
+
+   
 </section>

@@ -1,7 +1,6 @@
 ---
 title: Pathtracer
 layout: page
-hide: true
 ---
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -33,10 +32,9 @@ hide: true
 Incredibly intuitive, but equally powerful, Pathtracing is a technique to simulate virtual light, and the way it interacts with the world. I learned about the general ray tracing pipeline, material simulation and optics (reflection,
 and BSDF), ray and intersection geometry (Moller-Trumbore algorithm), and PathTracing optimizations (BVH and Adaptive Sampling).
 </p>
+<br>
 <h2 align="left">Section I: Intersection Testing, Ray Generation, Acceleration Structures</h2>
 <h3 align="left">Part 1: Ray Generation and Scene Intersection:</h3>
-<br>
-<div align = "justify">
 <p class = "medium">
 <b><i>Overview of the Ray Casting Process:</i></b><br>
 We can imagine looking at a grid of pixels. For each pixel <var>(x, y)</var> we need to somehow take an estimate of the radiance for this pixel, then write the corresponding
@@ -46,7 +44,6 @@ that pixel, and shoot a ray from the camera into the world passing through the r
 we will sum up the global radiance, by calling <code>est_radiance_global_illumination</code> then divide by the number of samples, effectively averaging the radiance for that
 pixel. This is the value that will ultimately be written to the scene buffer.
 </p>
-</div>
 
 <p class = "medium">
 <b><i>Camera Ray Generation:</i></b><br>
@@ -74,6 +71,7 @@ Since we’ll end up intersecting millions of triangles during our stint with pa
 we will leverage and implement the Moller-Trumbore algorithm. The Moller-Trumbore algorithm hinges on basic linear algebra, and is far more complicated than I give it credit;
 a much more thorough explanation can be found <a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/moller-trumbore-ray-triangle-intersection" target = "_blank">here</a>.
 </p>
+
 <br>
 <div align = "middle">
   <table style="width=100%">
@@ -94,8 +92,8 @@ a much more thorough explanation can be found <a href="https://www.scratchapixel
   </table>
 </div>
 <br>
+
 <h3 align="left">Part 2: The Bounding Volume Hierarchy (BVH):</h3>
-<br>
 <p class = "medium">
 <b><i>An Overview of BVH Generation:</i></b><br>
 Intuitively, the BVH construction algorithm aims to cut the elements into partitions in a way that can accelerate our ray-primitive intersection tests. Our construction function
@@ -240,9 +238,7 @@ primitives with each ray, which is clearly far worse.
 </p>
 <br><br>
 <h2 align="left">Section II: Lighting Calculations or The Heart of PathTracing</h2>
-<br>
 <h3 align="left">Part 3: Direct Illumination:</h3>
-<br>
 <div align = "middle">
   <table style="width=100%">
     <tr>
@@ -318,7 +314,7 @@ out of the sampling procedure, but otherwise, this case is a mirror for area lig
 Finally, after estimating the radiance arriving from the ray casted to the scene intersecting primitive <code>p</code> for each of the lights, we simply divide this total
 radiance by the number of samples, to complete our Monte Carlo Estimator.
 </p>
-<br>
+
 <p class = "medium">
 <b><i>UHL vs. LIS Quality Comparison:</i></b><br>
 While UHL and LIS are both technically valid methods of computing Direct Lighting, taking a quick look at a side by side comparison makes it pretty obvious that LIS ought to be
@@ -371,6 +367,7 @@ and this is reasonable. To reiterate an earlier point, “after all, for direct 
 </p>
 </div>
 <br>
+
 <h3 align="left">Part 4: Global Illumination:</h3>
 <div align = "middle">
   <table style="width=100%">
@@ -456,7 +453,7 @@ before this, so we implement a Russian Roulette algorithm. As the name suggests,
 just return the radiance computed without another bounce back. The only difference this makes is that we also need to divide the q-rooted radiance equation by the probability of
 back bounce, in this case 0.60. We save on some computation time, and statistically, we’ll be looking at basically the same render.
 </p>
-
+<br>
 <p class = "medium">
 <b><i>Maximal Ray Depth Comparison (1024 Samples Per Pixel):</i></b><br>
 <div align = "middle">
@@ -487,13 +484,19 @@ back bounce, in this case 0.60. We save on some computation time, and statistica
     </tr>
   </table>
 </div>
+
 <div align = "middle">
-<img src="images/task4/CBbunny_1024_m100.png" align="middle" width="500"/>
-<figcaption align="middle">CBbunny.dae Ray Depth: 100</figcaption>
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/task4/CBbunny_1024_m100.png" align="middle" width="500"/>
+        <figcaption align="middle">CBbunny.dae Ray Depth: 100</figcaption>
+      </td>
+    </tr>
+  </table>
 </div>
 
 <br><br>
-
 
 <div align = "left">
 <p class = "medium">
@@ -558,9 +561,9 @@ back bounce, in this case 0.60. We save on some computation time, and statistica
 </div>
 
 <br><br>
+
 <h2 align="left">Section III: Statistical Improvement</h2>
 <h3 align="left">Part 5: Adaptive Sampling:</h3>
-<br>
 <div align = "middle">
   <table style="width=100%">
     <tr>
@@ -615,7 +618,10 @@ From <code>s1</code> and <code>s2</code>, we can calculate the average illuminat
 from <code>(1 / (sample_count - 1)) * (s2 - s1 * s1 / n)</code>. If our termination statement passes, we’ll simply end our Monte Carlo estimation earlier, otherwise, we’ll
 keep sampling before we max out at <code>ns_aa</code> samples.
 </p>
+
 <br><br><br>
+
+<h2 align="left">Section IV: Materials & Effects</h2>
 <div align = "middle">
   <table style="width=100%">
     <tr>
@@ -631,9 +637,11 @@ keep sampling before we max out at <code>ns_aa</code> samples.
     </tr>
   </table>
 </div>
-<h2 align="left">Section IV: Materials & Effects</h2>
-<h3 align="left">Part 6: Glass and Mirrors - Variation in Max Ray Depth</h3>
+
 <br>
+<br>
+
+<h3 align="left">Part 6: Glass and Mirrors - Variation in Max Ray Depth</h3>
 <i>All images rendered with 256 samples per pixel and 4 light rays per sample.</i>
 <div align = "middle">
   <table style="width=100%">
@@ -777,9 +785,9 @@ that it really justifies the extra computation required. As a side note, we do n
 more light bounces, which again can be explained by the same reasoning just applied to diffuse materials instead. Shadows are generally softer
 as light bounces more, reducing the harsh shadow boundaries by lighting them up with indirect light paths.
 </p>
-<br><br>
-<h3 align="left">Part 7: Thin Lenses and Depth of Field</h3>
 <br>
+
+<h3 align="left">Part 7: Thin Lenses and Depth of Field</h3>
 <p class = "medium">
 <b><i>Pinhole Camera Model vs. Thin Lens Camera Model</i></b><br>
 From a physical standpoint, the major difference between the pinhole camera model and the thin lens camera model is (predictably)
@@ -831,6 +839,9 @@ between the plane of focus and the lens. As a result, we can illustrate some rea
     </tr>
   </table>
 </div>
+
+<br>
+
 <div align = "left">
 <p class = "medium">
 <b><i>Aperture Size</i></b><br>

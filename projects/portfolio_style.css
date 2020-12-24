@@ -4,14 +4,21 @@ video {
   height: auto;
 }
 
+img {
+  margin: auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 figcaption {
-background-color: black;
-color: white;
-font-style: italic;
-padding-top: 7px;
-padding-bottom: 7px;
-text-align: center;
-width: 100%;
+  background-color: black;
+  color: white;
+  font-style: italic;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  text-align: center;
+  width: 100%;
 }
 
 p.medium {
@@ -27,4 +34,23 @@ code {
   color: crimson;
   background-color: #eee;
   padding: 1px;
+}
+
+b {
+  font-weight: 600;
+}
+
+blockquote {
+  margin: 0;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }

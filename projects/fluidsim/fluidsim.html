@@ -4,30 +4,15 @@ layout: page
 hide: true
 ---
 <!DOCTYPE html>
-<style>
-  img {
-    margin: auto;
-    display: block;
-    max-width: 99%;
-    height: auto;
-    width: auto\9;
-  }
-
-  video {
-    width: 70%;
-    height: auto;
-  }
-
-  p.medium {line-height : 1.5;}
-</style>
-
 <html lang="en" dir="ltr">
 <head>
-<meta charset="utf-8">
+  <link rel="stylesheet" href="../portfolio_style.css">
+  <meta charset="utf-8">
 </head>
+
 <body>
   <div align = "middle">
-    <table style="width=100%">
+    <table style="width:100%">
       <tr>
         <td>
           <img src="animations/src/pic_large_drop/frameparticles0012.png" align="middle" width="400"/>
@@ -41,7 +26,7 @@ hide: true
       </tr>
     </table>
   </div>
-<h3 align="left">Overview</h3>
+<h3 align="left">Overview:</h3>
 <p class = "medium">
 I've always found physical simulation (along with lighting) to be one of the coolest aspects of computer graphics. Maybe its because of the animated movies I watched
 where effects really <a href="https://youtu.be/nrZxwPwmgrw?t=255" target="_blank">seal the deal</a>, helping to inject this feeling of magic into a scene. To that end, I worked on an APIC fluid simulation here
@@ -49,7 +34,9 @@ which was an extension of the PIC/FLIP fluid simulation originally written by Ro
 (after my failed foray into MPM for snow simulation) so it was pretty cool to learn about the recent developments in the field of fluid simulation.
 </p>
 
-<h3 align="left">Dissipation and Instability or, The Trouble With PIC/FLIP</h3>
+<br>
+
+<h3 align="left">Dissipation and Instability or, The Trouble With PIC/FLIP:</h3>
 <p class = "medium">
 In any dual Eulerian Lagrangian simulation method in which the simulation medium alters between discrete particles and a grid, there must be a mechanism to transfer between particles
 to the grid, and of course, from the grid back to the particles. To that end, two popular solvers are particle in cell (PIC) and Fluid Implicit Particles (FLIP), however these have noticeable
@@ -65,7 +52,9 @@ chosen, but often times the information collected from the grid nodes is casted 
  in Cell, another fluid solver that unfortunately falters in the face of shearing) is ensuring information relating to particulate angular momentum is not lost during domain transfers.
  </p>
 
-<h3 align="left">Introducing APIC</h3>
+ <br>
+
+<h3 align="left">Introducing APIC:</h3>
 <p class = "medium">
 Conceptually, APIC follows nicely from RPIC. Jiang et al note that a singular particle is capable of influencing multiple grid nodes, the exact number of which is dependent on the interpolation kernel used.
 This implies that the grid nodes can encode angular momentum information of that singular particle, however when transferring from grid nodes to particles, traditional PIC does not allow for particles themselves
@@ -82,7 +71,9 @@ In essence, RPIC and APIC are able to generate non dissipative fluid models by p
 singular particles can reclaim information that was sent to the grid nodes that would otherwise be lost in PIC, since singular particles in PIC cannot inherently encode angular momentum information.
 </p>
 
-<h3 align="left">Comparisons to PIC and FLIP</h3>
+<br>
+
+<h3 align="left">Comparisons to PIC and FLIP:</h3>
 <p class = "medium">
 Here are some comparisons between the PIC solver, FLIP solver, and APIC solver. As Jiang et al. note in the <a href="https://www.youtube.com/watch?v=rPPW_1M8nRA&feature=emb_logo" target=_blank>APIC introduction video</a>,
 the natural vorticity of fluids is encapsulated by APIC solvers, and compared to FLIP, APIC is noticeably more stable during fluid splashes. FLIP and APIC are both more energetic that PIC,
@@ -102,15 +93,19 @@ animations with OpenCV.
     <source src ="animations/vertical_column_comparison.mp4" type="video/mp4">
   </video>
 </div>
+
 <br>
-<h3 align="left">Moving Forward</h3>
+
+<h3 align="left">Moving Forward:</h3>
 <p class = "medium">
 There are a couple of additions I would like to make to this project, perhaps in the future. The most important of which is fully digesting the mathematics that drives the APIC fluid simulation.
 While I understand the general principles and goals of APIC, I need to spend more time carefully dissecting the literature to convince myself fully of the mathematical basis. I would also love to
 convert this to a 3D fluid solver as well, which should be relatively simple to do, given I would only need to update a couple of data structures, the interpolation kernel (to the trilinear interpolation
 kernel), and any dimensionally specific implementation. Finally it would be nice to re-mesh the particles to create a better looking fluid simulation composed of a cohesive mesh rather than a series of particles.
 </p>
+
 <br>
+
 <h3 align="left">Citations</h3>
 Click <a href="citations.html">here</a> to see a list of some of the resources that were super helpful in completing this project.
 

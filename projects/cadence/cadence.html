@@ -5,29 +5,13 @@ hide: true
 ---
 
 <!DOCTYPE html>
-<style>
-  img {
-    margin: auto;
-    display: block;
-    max-width: 99%;
-    height: auto;
-    width: auto\9;
-  }
-
-  video {
-    width: 70%;
-    height: auto;
-  }
-
-  p.medium {line-height : 1.5;}
-</style>
-
 <html lang="en" dir="ltr">
 <head>
-<meta charset="utf-8">
+  <link rel="stylesheet" href="../portfolio_style.css">
+  <meta charset="utf-8">
 </head>
-<body>
 
+<body>
 <h3>Background:</h3>
 <p class = "medium">
 I spent this past summer working at Cadence Design Systems, Inc., an EDA company headquartered in San Jose, California.  During the course of my internship, I worked on Allegro, Cadence's
@@ -36,6 +20,8 @@ flexible, and intuitive PCB design in 3D space. I actually worked at Cadence the
 aiming to flesh out the tool with a huge focus on uncompromised performance. To that end, a lot of my time this summer was focused on implementing features to augment the performance of the
 3D rendering engine being used, as well as implementing higher level features aimed at making the newest rendition of 3D Canvas easy and familiar to navigate.
 </p>
+
+<br>
 
 <h3>Reverse Depth Buffer:</h3>
 <p class = "medium">
@@ -73,7 +59,13 @@ into it, we might accidentally select the wrong object, which can be super frust
 <div align = "middle">
   <img src="images/zplane_demo.png" align="middle" width="400"/>
 </div>
-<p class = "medium">Look how far we can zoom out! The board will disappear due to far plane clipping before we see Z-fighting.</p>
+<p class = "medium">
+  <i>
+    Look how far we can zoom out! The board will disappear due to far plane clipping before we see Z-fighting.
+  </i>
+</p>
+
+<br>
 
 <h3>Pixel Buffer Objects, Asynchronous Transfer, and DMA:</h3>
 <p class="medium">
@@ -110,6 +102,8 @@ frame, we aren't wasting time waiting for selection data from the current frame.
 since the frames are separated by 17ms assuming a 60hz display, the only way to invalidate the pick data would be to alter the view so drastically in 17ms as to render the pick data incorrect.
 Fortunately, this isn't a realistic feat for humans, and thus not really a concern for our use case.
 </p>
+
+<br>
 
 <h3>Arcball Cameras:</h3>
 <p class="medium">

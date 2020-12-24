@@ -1,0 +1,162 @@
+---
+title: Augmented Reality
+layout: page
+---
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <link rel="stylesheet" href="../portfolio_style.css">
+  <meta charset="utf-8">
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+
+<style>
+img {
+  margin: auto;
+  display: block;
+  max-width: 75%;
+  height: auto;
+}
+
+video {
+  margin: auto;
+  display: block;
+  max-width: 75%;
+  height: auto;
+}
+
+figcaption {
+  background-color: black;
+  color: white;
+  font-style: italic;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  text-align: center;
+  max-width: 75%;
+}
+</style>
+
+</head>
+
+<body>
+<h2 align="Center">Overview</h2>
+<p class = "medium">
+I've always been super fascinated with augmented reality and virtual reality, and this project was a great introduction to a very primitive AR 
+pipeline. While it isn't a realtime augmented reality architecture, it was still super cool to see artifical overlays in a precaptured video. This project 
+goes through the entire process of video capture, point tracking, camera calibration, and artificial projection to generate a very elementary augmented 
+reality scene.
+</p>
+
+<br>
+
+<h2 align="Center">Video Capture</h2>
+<div class="row">
+  <div class="column">
+    <p class="medium">
+      We'll need to capture a video first so we can later superimpose overlays on top of it. If you have wrapping paper with grid marks on the back, I found that this 
+      was a really easy way to get good point spacing, since the printed grids tend to be significantly more precise than something I could have drawn by hand. I just had to 
+      color in the grid points for the point tracker.
+    </p>
+  </div>
+  <div class="column">
+    <img src="./src/source.gif" align="middle" width="500"/>
+  </div>
+</div>
+<br>
+
+<h2 align="Center">Collecting World Points</h2>
+<div class="row">
+  <div class="column">
+    <img src="./src/frame0.png" align="middle" width="500"/>
+    <figcaption align="center">Frame 0 with Point Numbering</code></figcaption>
+  </div>
+  <div class="column">
+    <p class="medium">
+      In order to overlay artificial scenes over our video, we need some way to match some notion of world space to some notion of screen space. There's no "true" world space orientation
+      so in general we can select a world space orientation which is useful for our computations. So for instance in this project, if we take a frame of the video, Point 0 that's marked on
+	  the box will be \((0, 0, 0)\), and if we impose some canonical identification for our points, we can select a coordinate system appropriately. Here's an example numbering of points for 
+	  my box on the left.
+    </p>
+    <br>
+    <p class="medium">
+      So with this numbering, we can therefore give each point a world space coordinate. Point 0 would be \((0, 0, 0, 1)\), Point 1 would be \((1, 0, 0, 1)\), Point 5 would be \((0, 1, 0, 1)\),
+      and Point 25 would be \((0, 0, 1, 1)\), all in homogeneous coordinates. Of note here, the grid cells on my wrapping paper are exactly 1 square inch, which is awesome, but actually it
+      turns out we don't particularly care about absolute lengths in world space, only relative coordinates.
+      </p>
+  </div>
+</div>
+<br>
+<h2 align="Center">Keypoint Tracking</h2>
+
+<div class="row">
+  <div class="column">
+    <p class="medium">
+      We've basically established a set of key points in the previous part, where each numbered point is a key point. The problem is, we did this once for frame 0, but in a 60 fps video, 
+      we would have to do this 60 times just to get one second's worth of key point tracking. Instead we can utilize some OpenCV utilities, namely, the <code>cv2.TrackerMedianFlow</code>. 
+      As the name might suggest, this is a prebuilt point tracker, so all we need to do is tell the tracker the bounding boxes of the points we want to track in frame 0, and hopefully if 
+      all goes well, the point tracker tracks the key points on our frames. Since we should have gotten the screen space coordinates of our key points with <code>ginput</code> in the previous section, we 
+      can use these screen space points to generate our initial bounding boxes, and feed them to our Median Flow Tracker. Here's what our video looks like with the key points tracked.
+    </p>
+  </div>
+  <div class="column">
+    <img src="./src/bboxes.gif" align="middle" width="500"/>
+    <figcaption align="center">OpenCV Median Flow Tracked Keypoints</code></figcaption>
+  </div>
+</div>
+<br>
+<h2 align="Center">Calibration</h2>
+<p class="medium">
+Believe it or not, we're almost done at this point. Once we have our tracked screen space points, since our world space coordinates are static, at this point we have
+26 world space points and their 26 mapped screen space points. Actually we may have less than 26 if one of our trackers dropped a point part way through. Regardless we wish to 
+generate our projection matrix that projects world space to screen space. Really this means we just need to solve a linear system of 12 equations, thus with 26 potential
+mapped points (and therefore 52 mapped coordinates total), we'll employ least squares to compute our projection matrix thus calibrating our camera. With our projection matrix 
+we can now draw something in world space, and see a mapped overlay in screen space! Of course, since the tracked screen space points will change position presumably every frame, 
+this camera calibration algorithm will occur on a per-frame frequency.
+</p>
+<br>
+<h2 align="Center">Overlays in Augmented Reality</h2>
+<p class="medium">
+All that's really left to do now is to actually draw our augmented reality overlays. We know where the origin is in world space, so if we want to overlay an axis widget 
+onto our screen, we can project our unit vectors into screen space, and use the <code>cv2</code> draw functions to render lines. Similarly to overlay a cube, I chose
+to have the cube base corners as corners 10, 20, 22, and 12. We know the world space coordinates of these 4 points, and we can easily extrapolate the world space coordinates 
+of the four points that make up the upper cap of the cube 2 world space units above each of these base corners. Since we know the projection matrix for each frame, we can project 
+the cube vertices into screen space, and again use the <code>cv2</code> draw functions to render our cube!
+</p>
+<div align = "middle">
+  <table style="width:100%">
+    <tr>
+      <td>
+          <img src="./src/cubev2.gif" align="middle" width="500"/>
+          <figcaption align="center">AR Cube</code></figcaption>
+      </td>
+      <td>
+        <img src="./src/widgetv2.gif" align="middle" width="500"/>
+        <figcaption align="center">AR Axis Widget</code></figcaption>
+    </td>
+    </tr>
+  </table>
+</div>
+
+
+<h2 align="Center">Citations</h2>
+<ul>
+<li><a href="https://fonts.google.com/specimen/Playfair+Display?selection.family=Playfair+Display|Roboto" target=_blank>https://fonts.google.com/specimen/Playfair+Display?selection.family=Playfair+Display|Roboto</a></li>
+<li><a href="https://www.google.com/" target=_blank>https://www.google.com/</a></li>
+<li><a href="http://docs.mathjax.org/en/latest/basic/mathematics.html" target=_blank>http://docs.mathjax.org/en/latest/basic/mathematics.html</a></li>
+<li><a href="https://piazza.com/class/kdktix3lfbx30j?cid=326" target=_blank>https://piazza.com/class/kdktix3lfbx30j?cid=326</a></li>
+<li><a href="https://inst.eecs.berkeley.edu/~cs194-26/sp20/hw/proj5/ar.html" target=_blank>https://inst.eecs.berkeley.edu/~cs194-26/sp20/hw/proj5/ar.html</a></li>
+<li><a href="https://www.w3schools.com/howto/howto_css_two_columns.asp" target=_blank>https://www.w3schools.com/howto/howto_css_two_columns.asp</a></li>
+<li><a href="https://inst.eecs.berkeley.edu/~cs194-26/fa20/hw/proj2/" target=_blank>https://inst.eecs.berkeley.edu/~cs194-26/fa20/hw/proj2/</a></li>
+</ul>
+
+<ul>
+<li><a href="https://cseweb.ucsd.edu/classes/wi07/cse252a/homography_estimation/homography_estimation.pdf" target=_blank>https://cseweb.ucsd.edu/classes/wi07/cse252a/homography_estimation/homography_estimation.pdf</a></li>
+<li><a href="http://www.cs.ucf.edu/~mtappen/cap5415/lecs/lec19.pdf" target=_blank>http://www.cs.ucf.edu/~mtappen/cap5415/lecs/lec19.pdf</a></li>
+<li><a href="https://www.learnopencv.com/object-tracking-using-opencv-cpp-python/" target=_blank>https://www.learnopencv.com/object-tracking-using-opencv-cpp-python/</a></li>
+<li><a href="https://docs.opencv.org/3.4/dc/dbb/tutorial_py_calibration.html" target=_blank>https://docs.opencv.org/3.4/dc/dbb/tutorial_py_calibration.html</a></li>
+<li><a href="https://docs.opencv.org/3.4/d7/d53/tutorial_py_pose.html" target=_blank>https://docs.opencv.org/3.4/d7/d53/tutorial_py_pose.html</a></li>
+<li><a href="https://stackoverflow.com/questions/753190/programmatically-generate-video-or-animated-gif-in-python" target=_blank>https://stackoverflow.com/questions/753190/programmatically-generate-video-or-animated-gif-in-python</a></li>
+</ul>
+</body>
+</html>
