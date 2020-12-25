@@ -3,10 +3,13 @@ layout: page
 title: Projects
 ---
 <link rel="stylesheet" href="./projects/gallery_style.css">
+<br>
+<br>
+
 <div style="text-align: center;">
-  <h3> 
-    <i> <a class="link" href="#computer_graphics">Computer Graphics</a> | <a class="link" href="#computer_vision">Computer Vision</a></i> 
-  </h3>
+  <h2 class="title"> 
+    <a class="section_title" href="#computer_graphics">Computer Graphics</a> | <a class="section_title" href="#computer_vision">Computer Vision</a>
+  </h2>
 </div>
 
 
@@ -21,12 +24,12 @@ title: Projects
     </a>
     <div class="gallery_card">
       <a href="./projects/pathtracer/pathtracer.html">
-        <h2>Pathtracer</h2> 
+        <h2 class="title">Pathtracer</h2> 
       </a>
       <p class="description">
         Implemented features to handle efficient ray-scene intersections with 
         the Moller-Trumbore algorithm, BVH generation, direct and global illumination,
-        material simulation and optics, and adaptive sampling. 
+        material simulation, and adaptive sampling. 
       </p>
     </div>
   </div> 
@@ -37,7 +40,7 @@ title: Projects
     </a>
     <div class="gallery_card">
       <a href="./projects/volumetric_scattering/volumetric_scattering.html">
-        <h2>Volumetric Scattering</h2> 
+        <h2 class="title">Volumetric Scattering</h2> 
       </a>
       <p class="description">
         An extension on the Pathtracer project to allow the renderer to handle 
@@ -52,10 +55,10 @@ title: Projects
     </a>
     <div class="gallery_card">
       <a href="./projects/fluidsim/fluidsim.html">
-        <h2>APIC Fluid Simulation</h2> 
+        <h2 class="title">APIC Fluid Simulation</h2> 
       </a>
       <p class="description">
-        APIC fluid simulation which was an extension of the PIC/FLIP fluid 
+        APIC fluid simulation which is an extension of the PIC/FLIP fluid 
         simulation originally written by Robert Bridson, and later augmented 
         by Ante Qu. 
       </p>
@@ -68,10 +71,10 @@ title: Projects
     </a>
     <div class="gallery_card">
       <a href="./projects/cadence/cadence.html">
-        <h2>High Performance Graphics with OpenGL</h2> 
+        <h2 class="title">High Performance Graphics with OpenGL</h2> 
       </a>
       <p class="description">
-        Implemented optimizations to improve performance of realtime rendering
+        Implemented optimizations to improve performance of realtime rendering,
         including high precision reverse depth buffering, pixel buffer object 
         support for asynchronous transfer, and arcball camera logic.
       </p>
@@ -84,7 +87,7 @@ title: Projects
     </a>
     <div class="gallery_card">
       <a href="./projects/rasterizer/rasterizer.html">
-        <h2>Rasterizer</h2> 
+        <h2 class="title">Rasterizer</h2> 
       </a>
       <p class="description">
         Implemented features in a rasterizer to handle basic rasterization, antialiasing,
@@ -100,7 +103,7 @@ title: Projects
     </a>
     <div class="gallery_card">
       <a href="./projects/meshedit/meshedit.html">
-        <h2>Meshedit</h2> 
+        <h2 class="title">Meshedit</h2> 
       </a>
       <p class="description">
         Implemented logic to handle computation of bezier curves and bezier surfaces,
@@ -122,13 +125,13 @@ title: Projects
     </a>
     <div class="gallery_card">
       <a href="./projects/style_transfer/style_transfer.html">
-        <h2>Neural Style Transfer</h2> 
+        <h2 class="title">Neural Style Transfer</h2> 
       </a>
       <p class="description">
         An implemented version of neural style transfer from 
         <a href="https://arxiv.org/pdf/1508.06576)" target="_blank">Gatys' paper</a>.
         Using convolutional neural nets to extricate style patterns from famous 
-        paintings and rendering photos in those styles.
+        paintings, and re-rendering photos with those style influences.
       </p>
     </div>
   </div>
@@ -138,11 +141,11 @@ title: Projects
     </a>
     <div class="gallery_card">
       <a href="./projects/ar/ar.html">
-        <h2>Augmented Reality</h2> 
+        <h2 class="title">Augmented Reality</h2> 
       </a>
       <p class="description">
         A very rudimentary form of augmented reality. Uses OpenCV to
-        track points in captured video allowing for projection matrix 
+        track points in captured video, allowing for projection matrix 
         computation, and camera calibration, at which point simple 
         overlays can be projected onto the video.
       </p>

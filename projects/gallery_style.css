@@ -3,8 +3,22 @@ div.gallery_card {
   max-width: 50%;
 }
 
-h2 {
+h2.title {
   margin:0px;
+}
+
+h2.title:hover {
+  color: #0054a3;
+}
+
+a.section_title {
+  color: black;
+  text-decoration-color:#0054a3;
+  font-style: normal;
+}
+
+a.section_title:hover {
+  color: #0054a3;
 }
 
 h1.section_header {
